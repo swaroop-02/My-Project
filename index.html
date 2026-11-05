@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SWAROOP'S HUB - Premium Online Shopping</title>
+  <meta name="description" content="Discover the art of premium shopping with SWAROOP'S HUB. Shop curated electronics, fashion, accessories, and home goods.">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/products.js"></script>
+  <script src="js/app.js"></script>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <span class="logo-icon">✦</span>
+        SWAROOP'S<span class="logo-accent">HUB</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link active">Home</a></li>
+        <li><a href="shop.html" class="nav-link">Shop</a></li>
+        <li><a href="categories.html" class="nav-link">Categories</a></li>
+        <li><a href="about.html" class="nav-link">About</a></li>
+        <li>
+          <a href="cart.html" class="nav-link nav-cart-link">
+            Cart
+            <span class="cart-count">0</span>
+          </a>
+        </li>
+      </ul>
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+  <div class="nav-overlay"></div>
+
+  <section class="hero">
+    <div class="container hero-container">
+      <div class="hero-content">
+        <div class="hero-badge">✦ New Collection 2026</div>
+        <h1 class="hero-title">Discover the Art of <span class="highlight">Premium Shopping</span></h1>
+        <p class="hero-subtitle">Explore our curated collection of premium products, designed to elevate your everyday life with style and innovation.</p>
+        <div class="hero-actions">
+          <a href="shop.html" class="btn btn-primary">Shop Collection</a>
+          <a href="#categories" class="btn btn-secondary">Explore Categories</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat">
+            <div class="stat-number">10K+</div>
+            <div class="stat-label">Products</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">50K+</div>
+            <div class="stat-label">Customers</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">4.9</div>
+            <div class="stat-label">Rating</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-visual-card">
+          <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=800&q=80" alt="Premium Shopping" class="hero-visual-img">
+        </div>
+        <div class="floating-badge">
+          <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=120&q=80" alt="Smart Watch" class="fb-img">
+          <div class="fb-text">
+            <h4>Smart Watch Ultra</h4>
+            <p>New Arrival</p>
+          </div>
+        </div>
+        <div class="floating-badge">
+          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=120&q=80" alt="Rating" class="fb-img avatar-circle">
+          <div class="fb-text">
+            <h4>4.9 / 5.0</h4>
+            <p>10K+ Reviews</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="categories" class="section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <div class="section-badge">Categories</div>
+        <h2 class="section-title">Shop by Category</h2>
+        <p class="section-subtitle">Browse through our carefully curated categories designed just for you.</p>
+      </div>
+      <div class="categories-grid animate-on-scroll" id="categories-grid">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <div class="section-badge">Featured</div>
+        <h2 class="section-title">Trending Products</h2>
+        <p class="section-subtitle">Discover our most popular items loved by customers worldwide.</p>
+      </div>
+      <div class="products-grid" id="featured-products">
+        <!-- Rendered by JS -->
+      </div>
+      <div style="text-align: center; margin-top: 48px;">
+        <a href="shop.html" class="btn btn-secondary">View All Products</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <div class="section-badge">Testimonials</div>
+        <h2 class="section-title">What Our Customers Say</h2>
+      </div>
+      <div class="testimonials-grid animate-on-scroll" id="testimonials-grid">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </section>
+
+  <section class="newsletter">
+    <div class="container">
+      <div class="newsletter-card animate-on-scroll">
+        <h2 class="newsletter-title">Subscribe to our Newsletter</h2>
+        <p class="newsletter-text">Get the latest updates on new products and upcoming sales directly in your inbox.</p>
+        <form class="newsletter-form" onsubmit="event.preventDefault(); showToast('Subscribed successfully!', 'success');">
+          <input type="email" class="newsletter-input" placeholder="Your email address" required>
+          <button type="submit" class="btn btn-primary">Subscribe</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="features-bar">
+    <div class="container">
+      <div class="features-grid">
+        <div class="feature-item animate-on-scroll">
+          <div class="feature-icon">🚚</div>
+          <h4 class="feature-title">Free Shipping</h4>
+          <p class="feature-text">On orders over $50</p>
+        </div>
+        <div class="feature-item animate-on-scroll">
+          <div class="feature-icon">🛡️</div>
+          <h4 class="feature-title">Secure Payment</h4>
+          <p class="feature-text">100% secure checkout</p>
+        </div>
+        <div class="feature-item animate-on-scroll">
+          <div class="feature-icon">🔄</div>
+          <h4 class="feature-title">Easy Returns</h4>
+          <p class="feature-text">30-day return policy</p>
+        </div>
+        <div class="feature-item animate-on-scroll">
+          <div class="feature-icon">💬</div>
+          <h4 class="feature-title">24/7 Support</h4>
+          <p class="feature-text">Always here to help</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a href="#" class="footer-logo">
+            <span class="logo-icon">✦</span> SWAROOP'S HUB
+          </a>
+          <p class="footer-desc">Elevating your shopping experience with curated premium products across electronics, fashion, and home goods.</p>
+          <div class="social-links">
+            <a href="#" class="social-link">X</a>
+            <a href="#" class="social-link">IG</a>
+            <a href="#" class="social-link">FB</a>
+          </div>
+        </div>
+        <div class="footer-links-group">
+          <h4>Shop</h4>
+          <ul>
+            <li><a href="shop.html?category=electronics">Electronics</a></li>
+            <li><a href="shop.html?category=fashion">Fashion</a></li>
+            <li><a href="shop.html?category=accessories">Accessories</a></li>
+            <li><a href="shop.html?category=home">Home & Living</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-group">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Blog</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-group">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Shipping</a></li>
+            <li><a href="#">Returns</a></li>
+            <li><a href="#">Track Order</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 SWAROOP'S HUB. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Render Categories
+      const catContainer = document.getElementById('categories-grid');
+      if (catContainer) {
+        catContainer.innerHTML = CATEGORIES.map(c => `
+          <div class="category-card" style="background-image: url('${c.image}')" onclick="window.location.href='shop.html?category=${c.id}'">
+            <div class="category-content">
+              <h3 class="category-name">${c.name}</h3>
+              <span class="category-count">${c.count} Products</span>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      // Render Featured Products
+      renderProducts('featured-products', PRODUCTS.slice(0, 8));
+
+      // Render Testimonials
+      renderTestimonials('testimonials-grid');
+    });
+  </script>
+</body>
+</html>

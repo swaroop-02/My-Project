@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product - SWAROOP'S HUB</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/products.js"></script>
+  <script src="js/app.js"></script>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <span class="logo-icon">◆</span>
+        SWAROOP'S <span class="logo-accent">HUB</span>
+      </a>
+      <div class="nav-overlay"></div>
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="shop.html" class="nav-link active">Shop</a></li>
+        <li><a href="cart.html" class="nav-link nav-cart-link">Cart <span class="cart-count">0</span></a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+      </ul>
+      <button class="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Product Detail Section -->
+  <section class="product-detail">
+    <div class="container">
+      <div class="product-detail-grid">
+        <div class="product-detail-image" id="product-image">
+          <!-- Populated by JS -->
+        </div>
+        <div class="product-detail-info" id="product-info">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Products Section -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">You May Also Like</h2>
+      <div id="related-products" class="products-grid">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="footer-logo">
+            <span class="logo-icon">◆</span> SWAROOP'S <span class="logo-accent">HUB</span>
+          </a>
+          <p class="footer-desc">Your premium destination for curated products that blend style, quality, and innovation.</p>
+          <div class="social-links">
+            <a href="#" class="social-link">𝕏</a>
+            <a href="#" class="social-link">in</a>
+            <a href="#" class="social-link">IG</a>
+            <a href="#" class="social-link">FB</a>
+          </div>
+        </div>
+        <div class="footer-links-group">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="cart.html">Cart</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-group">
+          <h4>Categories</h4>
+          <ul>
+            <li><a href="shop.html?category=electronics">Electronics</a></li>
+            <li><a href="shop.html?category=fashion">Fashion</a></li>
+            <li><a href="shop.html?category=accessories">Accessories</a></li>
+            <li><a href="shop.html?category=home">Home & Living</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-group">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Shipping Policy</a></li>
+            <li><a href="#">Returns</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 SWAROOP'S HUB. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Wait for JS to load
+    window.addEventListener('DOMContentLoaded', () => {
+      // Get product ID from URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const productId = parseInt(urlParams.get('id'));
+      const product = typeof PRODUCTS !== 'undefined' ? PRODUCTS.find(p => p.id === productId) : null;
+
+      if (!product) {
+        document.querySelector('.product-detail').innerHTML = `
+          <div class="container" style="text-align:center;padding:100px 0">
+            <div style="font-size:4rem;margin-bottom:20px">😕</div>
+            <h2>Product Not Found</h2>
+            <p style="color:var(--text-secondary);margin:16px 0 32px">The product you're looking for doesn't exist.</p>
+            <a href="shop.html" class="btn btn-primary">Browse Products</a>
+          </div>`;
+      } else {
+        document.title = `${product.name} - SWAROOP'S HUB`;
+        
+        const imageEl = document.getElementById('product-image');
+        imageEl.innerHTML = `<img src="${product.image}" alt="${product.name}" class="product-detail-img">`;
+
+        let originalPriceHtml = '';
+        let discountBadge = '';
+        if (product.originalPrice > product.price) {
+          const discount = Math.round((product.originalPrice - product.price) / product.originalPrice * 100);
+          originalPriceHtml = `<span class="product-detail-original">$${product.originalPrice.toFixed(2)}</span>`;
+          discountBadge = `<span class="product-discount">-${discount}%</span>`;
+        }
+        
+        let badgeHtml = '';
+        if (product.badge) {
+          badgeHtml = `<span class="product-detail-badge badge-${product.badge}">${product.badge.toUpperCase()}</span>`;
+        }
+
+        let featuresHtml = '';
+        if (product.features && product.features.length > 0) {
+          featuresHtml = `
+            <ul class="detail-features">
+              ${product.features.map(f => `<li>✓ ${f}</li>`).join('')}
+            </ul>`;
+        }
+
+        let colorsHtml = '';
+        if (product.colors && product.colors.length > 0) {
+          colorsHtml = `
+            <div class="detail-colors">
+              <p><strong>Color:</strong> <span id="selected-color">${product.colors[0]}</span></p>
+              <div class="color-options">
+                ${product.colors.map((c, i) => `
+                  <button class="color-btn ${i === 0 ? 'active' : ''}" style="background-color: ${c.toLowerCase()};" data-color="${c}" aria-label="${c}"></button>
+                `).join('')}
+              </div>
+            </div>`;
+        }
+
+        let sizesHtml = '';
+        if (product.sizes && product.sizes.length > 0) {
+          sizesHtml = `
+            <div class="detail-sizes">
+              <p><strong>Size:</strong> <span id="selected-size">${product.sizes[0]}</span></p>
+              <div class="size-options">
+                ${product.sizes.map((s, i) => `
+                  <button class="size-btn ${i === 0 ? 'active' : ''}" data-size="${s}">${s}</button>
+                `).join('')}
+              </div>
+            </div>`;
+        }
+
+        document.getElementById('product-info').innerHTML = `
+          ${badgeHtml}
+          <div class="product-category">${product.category.toUpperCase()}</div>
+          <h1 class="product-detail-name">${product.name}</h1>
+          <div class="product-detail-rating">
+            ${typeof generateStars !== 'undefined' ? generateStars(product.rating) : '⭐⭐⭐⭐⭐'}
+            <span class="rating-count">(${product.reviews} reviews)</span>
+          </div>
+          <div class="product-detail-price-wrap">
+            <span class="product-detail-price">$${product.price.toFixed(2)}</span>
+            ${originalPriceHtml} ${discountBadge}
+          </div>
+          <p class="product-detail-desc">${product.description}</p>
+          ${featuresHtml}
+          ${colorsHtml}
+          ${sizesHtml}
+          
+          <div class="detail-actions">
+            <div class="quantity-selector">
+              <button class="qty-btn" id="qty-minus">−</button>
+              <span class="qty-value" id="qty-val">1</span>
+              <button class="qty-btn" id="qty-plus">+</button>
+            </div>
+            <button class="btn btn-primary btn-add-cart" id="add-to-cart-btn" style="width:100%">Add to Cart</button>
+            <button class="btn btn-secondary btn-wishlist">🤍</button>
+          </div>
+        `;
+
+        // Interactivity
+        if (product.colors && product.colors.length > 0) {
+          const colorBtns = document.querySelectorAll('.color-btn');
+          const selectedColorText = document.getElementById('selected-color');
+          colorBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+              colorBtns.forEach(b => b.classList.remove('active'));
+              e.target.classList.add('active');
+              selectedColorText.textContent = e.target.dataset.color;
+            });
+          });
+        }
+
+        if (product.sizes && product.sizes.length > 0) {
+          const sizeBtns = document.querySelectorAll('.size-btn');
+          const selectedSizeText = document.getElementById('selected-size');
+          sizeBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+              sizeBtns.forEach(b => b.classList.remove('active'));
+              e.target.classList.add('active');
+              selectedSizeText.textContent = e.target.dataset.size;
+            });
+          });
+        }
+
+        let qty = 1;
+        const qtyVal = document.getElementById('qty-val');
+        document.getElementById('qty-minus').addEventListener('click', () => {
+          if (qty > 1) {
+            qty--;
+            qtyVal.textContent = qty;
+          }
+        });
+        document.getElementById('qty-plus').addEventListener('click', () => {
+          if (qty < 10) {
+            qty++;
+            qtyVal.textContent = qty;
+          }
+        });
+
+        document.getElementById('add-to-cart-btn').addEventListener('click', () => {
+          if (window.cart && cart.addItem) {
+            cart.addItem(product.id, qty);
+          } else {
+            console.error('Cart not found');
+          }
+        });
+
+        const wishlistBtn = document.querySelector('.btn-wishlist');
+        if (wishlistBtn) {
+          wishlistBtn.addEventListener('click', () => {
+            if (typeof showToast === 'function') {
+              showToast(`${product.name} saved to wishlist!`, 'info');
+            }
+          });
+        }
+
+        // Related Products
+        const related = PRODUCTS.filter(p => p.category === product.category && p.id !== product.id).slice(0, 4);
+        if (related.length < 4) {
+          const others = PRODUCTS.filter(p => p.id !== product.id && !related.includes(p));
+          while (related.length < 4 && others.length > 0) {
+            related.push(others.shift());
+          }
+        }
+        if (typeof renderProducts !== 'undefined') {
+          renderProducts('related-products', related);
+        }
+      }
+    });
+  </script>
+</body>
+</html>

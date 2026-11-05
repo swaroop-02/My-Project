@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact - SWAROOP'S HUB</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/products.js"></script>
+  <script src="js/app.js"></script>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <span class="logo-icon">◆</span>
+        SWAROOP'S <span class="logo-accent">HUB</span>
+      </a>
+      <div class="nav-overlay"></div>
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="shop.html" class="nav-link">Shop</a></li>
+        <li><a href="cart.html" class="nav-link nav-cart-link">Cart <span class="cart-count">0</span></a></li>
+        <li><a href="contact.html" class="nav-link active">Contact</a></li>
+      </ul>
+      <button class="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="page-header">
+    <div class="container">
+      <h1 class="page-title">Get in Touch</h1>
+      <div class="page-breadcrumb">
+        <a href="index.html">Home</a> &gt; <span>Contact</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Contact Section -->
+  <section class="contact-section section">
+    <div class="container">
+      <div class="contact-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;margin-bottom:4rem;">
+        
+        <!-- Contact Form -->
+        <div class="contact-form" style="background:var(--card-bg, #161625);padding:2.5rem;border-radius:16px;">
+          <h2 style="font-size:1.5rem;font-weight:700;margin-bottom:8px;">Send us a Message</h2>
+          <p style="color:var(--text-secondary);margin-bottom:32px;">We'd love to hear from you. Fill out the form below and we'll get back to you shortly.</p>
+          
+          <form id="contact-form">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;">
+              <div class="form-group">
+                <label class="form-label" for="name">Name</label>
+                <input type="text" id="name" class="form-input" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="email">Email</label>
+                <input type="email" id="email" class="form-input" required>
+              </div>
+            </div>
+            <div class="form-group" style="margin-bottom:1rem;">
+              <label class="form-label" for="subject">Subject</label>
+              <input type="text" id="subject" class="form-input" required>
+            </div>
+            <div class="form-group" style="margin-bottom:1.5rem;">
+              <label class="form-label" for="message">Message</label>
+              <textarea id="message" class="form-textarea" rows="5" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%;">Send Message</button>
+          </form>
+        </div>
+
+        <!-- Contact Info -->
+        <div class="contact-info">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;">
+            <div class="info-card" style="background:var(--card-bg, #161625);padding:1.5rem;border-radius:12px;">
+              <div class="info-icon" style="font-size:2rem;margin-bottom:1rem;">📍</div>
+              <h3 class="info-title" style="font-size:1.1rem;margin-bottom:0.5rem;">Visit Us</h3>
+              <p class="info-text" style="color:var(--text-secondary);">123 Innovation Drive,<br>Tech City, TC 10001</p>
+            </div>
+            <div class="info-card" style="background:var(--card-bg, #161625);padding:1.5rem;border-radius:12px;">
+              <div class="info-icon" style="font-size:2rem;margin-bottom:1rem;">📧</div>
+              <h3 class="info-title" style="font-size:1.1rem;margin-bottom:0.5rem;">Email Us</h3>
+              <p class="info-text" style="color:var(--text-secondary);">support@swaroopshub.com<br>info@swaroopshub.com</p>
+            </div>
+            <div class="info-card" style="background:var(--card-bg, #161625);padding:1.5rem;border-radius:12px;">
+              <div class="info-icon" style="font-size:2rem;margin-bottom:1rem;">📞</div>
+              <h3 class="info-title" style="font-size:1.1rem;margin-bottom:0.5rem;">Call Us</h3>
+              <p class="info-text" style="color:var(--text-secondary);">+1 (555) 123-4567<br>Mon-Fri 9AM-6PM</p>
+            </div>
+            <div class="info-card" style="background:var(--card-bg, #161625);padding:1.5rem;border-radius:12px;">
+              <div class="info-icon" style="font-size:2rem;margin-bottom:1rem;">💬</div>
+              <h3 class="info-title" style="font-size:1.1rem;margin-bottom:0.5rem;">Live Chat</h3>
+              <p class="info-text" style="color:var(--text-secondary);">Available 24/7 for<br>instant support</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ Section -->
+      <div class="faq-section" style="max-width:800px;margin:0 auto;">
+        <h2 class="section-title" style="text-align:center;margin-bottom:2rem;">Frequently Asked Questions</h2>
+        
+        <div class="faq-item" style="background:var(--card-bg, #161625);margin-bottom:1rem;border-radius:8px;overflow:hidden;">
+          <div class="faq-question" style="padding:1.5rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-weight:600;">
+            What payment methods do you accept?
+            <span class="faq-toggle" style="font-size:1.5rem;transition:transform 0.3s;">+</span>
+          </div>
+          <div class="faq-answer" style="padding:0 1.5rem 1.5rem;color:var(--text-secondary);display:none;">
+            We accept all major credit cards (Visa, MasterCard, American Express), PayPal, Apple Pay, and Google Pay.
+          </div>
+        </div>
+
+        <div class="faq-item" style="background:var(--card-bg, #161625);margin-bottom:1rem;border-radius:8px;overflow:hidden;">
+          <div class="faq-question" style="padding:1.5rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-weight:600;">
+            How long does shipping take?
+            <span class="faq-toggle" style="font-size:1.5rem;transition:transform 0.3s;">+</span>
+          </div>
+          <div class="faq-answer" style="padding:0 1.5rem 1.5rem;color:var(--text-secondary);display:none;">
+            Standard shipping takes 5-7 business days. Express shipping is available for 2-3 business day delivery.
+          </div>
+        </div>
+
+        <div class="faq-item" style="background:var(--card-bg, #161625);margin-bottom:1rem;border-radius:8px;overflow:hidden;">
+          <div class="faq-question" style="padding:1.5rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-weight:600;">
+            What is your return policy?
+            <span class="faq-toggle" style="font-size:1.5rem;transition:transform 0.3s;">+</span>
+          </div>
+          <div class="faq-answer" style="padding:0 1.5rem 1.5rem;color:var(--text-secondary);display:none;">
+            We offer a 30-day hassle-free return policy. Items must be in original condition with tags attached.
+          </div>
+        </div>
+
+        <div class="faq-item" style="background:var(--card-bg, #161625);margin-bottom:1rem;border-radius:8px;overflow:hidden;">
+          <div class="faq-question" style="padding:1.5rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-weight:600;">
+            Do you ship internationally?
+            <span class="faq-toggle" style="font-size:1.5rem;transition:transform 0.3s;">+</span>
+          </div>
+          <div class="faq-answer" style="padding:0 1.5rem 1.5rem;color:var(--text-secondary);display:none;">
+            Yes! We ship to over 50 countries worldwide. International shipping rates vary by destination.
+          </div>
+        </div>
+
+        <div class="faq-item" style="background:var(--card-bg, #161625);margin-bottom:1rem;border-radius:8px;overflow:hidden;">
+          <div class="faq-question" style="padding:1.5rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-weight:600;">
+            How can I track my order?
+            <span class="faq-toggle" style="font-size:1.5rem;transition:transform 0.3s;">+</span>
+          </div>
+          <div class="faq-answer" style="padding:0 1.5rem 1.5rem;color:var(--text-secondary);display:none;">
+            Once your order ships, you'll receive an email with tracking information. You can also track your order in your account dashboard.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="footer-logo">
+            <span class="logo-icon">◆</span> SWAROOP'S <span class="logo-accent">HUB</span>
+          </a>
+          <p class="footer-desc">Your premium destination for curated products that blend style, quality, and innovation.</p>
+          <div class="social-links">
+            <a href="#" class="social-link">𝕏</a>
+            <a href="#" class="social-link">in</a>
+            <a href="#" class="social-link">IG</a>
+            <a href="#" class="social-link">FB</a>
+          </div>
+        </div>
+        <div class="footer-links-group">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="cart.html">Cart</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-group">
+          <h4>Categories</h4>
+          <ul>
+            <li><a href="shop.html?category=electronics">Electronics</a></li>
+            <li><a href="shop.html?category=fashion">Fashion</a></li>
+            <li><a href="shop.html?category=accessories">Accessories</a></li>
+            <li><a href="shop.html?category=home">Home & Living</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-group">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Shipping Policy</a></li>
+            <li><a href="#">Returns</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 SWAROOP'S HUB. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // FAQ Accordion
+    document.querySelectorAll('.faq-question').forEach(question => {
+      question.addEventListener('click', () => {
+        const item = question.parentElement;
+        const isActive = item.classList.contains('active');
+        const answer = item.querySelector('.faq-answer');
+        const toggle = item.querySelector('.faq-toggle');
+        
+        // Close all FAQ items
+        document.querySelectorAll('.faq-item').forEach(i => {
+          i.classList.remove('active');
+          i.querySelector('.faq-answer').style.display = 'none';
+          i.querySelector('.faq-toggle').style.transform = 'rotate(0deg)';
+        });
+        
+        // Toggle clicked item
+        if (!isActive) {
+          item.classList.add('active');
+          answer.style.display = 'block';
+          toggle.style.transform = 'rotate(45deg)';
+        }
+      });
+    });
+
+    // Contact Form
+    document.getElementById('contact-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (typeof showToast === 'function') {
+        showToast("Message sent successfully! We'll get back to you soon.", 'success');
+      } else {
+        alert("Message sent successfully! We'll get back to you soon.");
+      }
+      e.target.reset();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cart - SWAROOP'S HUB</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/products.js"></script>
+  <script src="js/app.js"></script>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <span class="logo-icon">◆</span>
+        SWAROOP'S <span class="logo-accent">HUB</span>
+      </a>
+      <div class="nav-overlay"></div>
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="shop.html" class="nav-link">Shop</a></li>
+        <li><a href="categories.html" class="nav-link">Categories</a></li>
+        <li><a href="about.html" class="nav-link">About</a></li>
+        <li>
+          <a href="cart.html" class="nav-link nav-cart-link active">
+            Cart
+            <span class="cart-count">0</span>
+          </a>
+        </li>
+      </ul>
+      <button class="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="page-header">
+    <div class="container">
+      <h1 class="page-title">Shopping Cart</h1>
+      <div class="page-breadcrumb">
+        <a href="index.html">Home</a> &gt; <span>Cart</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Cart Section -->
+  <section class="cart-section">
+    <div class="container" id="cart-content">
+      <!-- Rendered by JS -->
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="footer-logo">
+            <span class="logo-icon">◆</span> SWAROOP'S <span class="logo-accent">HUB</span>
+          </a>
+          <p class="footer-desc">Your premium destination for curated products that blend style, quality, and innovation.</p>
+          <div class="social-links">
+            <a href="#" class="social-link">𝕏</a>
+            <a href="#" class="social-link">in</a>
+            <a href="#" class="social-link">IG</a>
+            <a href="#" class="social-link">FB</a>
+          </div>
+        </div>
+        <div class="footer-links-group">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="cart.html">Cart</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-group">
+          <h4>Categories</h4>
+          <ul>
+            <li><a href="shop.html?category=electronics">Electronics</a></li>
+            <li><a href="shop.html?category=fashion">Fashion</a></li>
+            <li><a href="shop.html?category=accessories">Accessories</a></li>
+            <li><a href="shop.html?category=home">Home & Living</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-group">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Shipping Policy</a></li>
+            <li><a href="#">Returns</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 SWAROOP'S HUB. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Checkout Modal -->
+  <div class="modal-overlay" id="checkout-modal">
+    <div class="modal-content" style="position:relative;max-width:480px;text-align:center;">
+      <button class="modal-close" onclick="closeCheckoutModal()" style="position:absolute;top:16px;right:16px;font-size:1.5rem;color:var(--text-muted);cursor:pointer;background:none;border:none;">&times;</button>
+      <div class="modal-icon" style="font-size:4rem;margin-bottom:1rem;">🎉</div>
+      <h2 class="modal-title" style="font-size:1.6rem;font-weight:700;margin-bottom:0.5rem;">Order Placed Successfully!</h2>
+      <p class="modal-text" style="color:var(--text-secondary);margin-bottom:1.5rem;line-height:1.6;">Thank you for your purchase! Your order has been placed and is being prepared for fast delivery.</p>
+      <div id="modal-order-summary" style="background:var(--bg-secondary);padding:1rem;border-radius:12px;margin-bottom:1.5rem;text-align:left;font-size:0.9rem;"></div>
+      <a href="shop.html" class="btn btn-primary" onclick="closeCheckoutModal()" style="width:100%">Continue Shopping</a>
+    </div>
+  </div>
+
+  <script>
+    function renderCart() {
+      const cartContent = document.getElementById('cart-content');
+      if (!cartContent) return;
+
+      if (!window.cart || cart.items.length === 0) {
+        cartContent.innerHTML = `
+          <div class="cart-empty" style="text-align:center;padding:80px 0;">
+            <div style="font-size:5rem;margin-bottom:24px;opacity:0.8;">🛒</div>
+            <h2 style="font-size:1.8rem;font-weight:700;margin-bottom:12px">Your Shopping Cart is Empty</h2>
+            <p style="color:var(--text-secondary);margin-bottom:32px;max-width:400px;margin-inline:auto;">Discover our curated collection of premium products and find something you love.</p>
+            <a href="shop.html" class="btn btn-primary" style="padding:14px 36px;">Explore Shop</a>
+          </div>`;
+        if (window.cart) cart.updateBadge();
+        return;
+      }
+      
+      const subtotal = cart.getTotal();
+      let discountAmount = 0;
+      if (cart.appliedPromo) {
+        discountAmount = subtotal * (cart.appliedPromo.discountPercent / 100);
+      }
+      const discountedSubtotal = Math.max(0, subtotal - discountAmount);
+      const tax = discountedSubtotal * 0.08;
+      const total = discountedSubtotal + tax;
+      
+      const promoHtml = cart.appliedPromo 
+        ? `
+          <div class="applied-promo" style="display:flex;align-items:center;justify-content:space-between;background:rgba(16,185,129,0.1);border:1px solid var(--success);padding:10px 14px;border-radius:8px;margin-bottom:1rem;">
+            <span style="color:var(--success);font-weight:600;font-size:0.85rem;">🏷️ ${cart.appliedPromo.name}</span>
+            <button onclick="removePromoCode()" style="color:var(--danger);background:none;border:none;cursor:pointer;font-size:0.85rem;font-weight:600;">Remove</button>
+          </div>`
+        : `
+          <div class="promo-code" style="display:flex;gap:0.5rem;margin-bottom:1.5rem;">
+            <input type="text" id="promo-input" placeholder="Promo Code (e.g. SWAROOP10)" class="form-input" style="flex:1;padding:10px 14px;border-radius:8px;background:var(--bg-secondary);border:1px solid var(--border);color:white;">
+            <button class="btn btn-secondary" onclick="applyPromoCode()" style="padding:10px 18px;">Apply</button>
+          </div>`;
+
+      cartContent.innerHTML = `
+        <div class="cart-grid" style="display:grid;grid-template-columns:2fr 1fr;gap:2rem;">
+          <div class="cart-items">
+            ${cart.items.map(item => `
+              <div class="cart-item" data-id="${item.id}" style="display:flex;align-items:center;gap:1.25rem;padding:1.25rem;background:var(--card-bg, #161625);border-radius:16px;margin-bottom:1rem;border:1px solid var(--border);">
+                <div class="cart-item-image">
+                  <img src="${item.image}" alt="${item.name}" class="cart-item-img">
+                </div>
+                <div class="cart-item-details" style="flex:1;">
+                  <span style="font-size:0.75rem;text-transform:uppercase;color:var(--primary-light);font-weight:600;letter-spacing:1px;">${item.category || 'Product'}</span>
+                  <h3 class="cart-item-name" style="margin:4px 0 8px 0;font-size:1.1rem;font-weight:600;">${item.name}</h3>
+                  <p class="cart-item-price" style="margin:0 0 12px 0;color:var(--text-secondary);font-weight:500;">$${item.price.toFixed(2)} each</p>
+                  <div class="cart-quantity" style="display:inline-flex;align-items:center;gap:0.5rem;background:var(--bg-secondary);padding:4px 8px;border-radius:8px;border:1px solid var(--border);">
+                    <button class="qty-btn" onclick="updateItemQty(${item.id}, ${item.quantity - 1})" style="padding:4px 10px;color:var(--text-primary);cursor:pointer;font-weight:bold;font-size:1.1rem;background:none;border:none;">−</button>
+                    <span class="qty-value" style="font-weight:600;min-width:24px;text-align:center;">${item.quantity}</span>
+                    <button class="qty-btn" onclick="updateItemQty(${item.id}, ${item.quantity + 1})" style="padding:4px 10px;color:var(--text-primary);cursor:pointer;font-weight:bold;font-size:1.1rem;background:none;border:none;">+</button>
+                  </div>
+                </div>
+                <div class="cart-item-right" style="text-align:right;">
+                  <span class="cart-item-total" style="display:block;font-weight:700;font-size:1.25rem;margin-bottom:12px;color:var(--text-primary);">$${(item.price * item.quantity).toFixed(2)}</span>
+                  <button class="cart-item-remove" onclick="removeItem(${item.id})" title="Remove item" style="background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:0.85rem;transition:color 0.2s;" onmouseover="this.style.color='var(--danger)'" onmouseout="this.style.color='var(--text-muted)'">🗑️ Remove</button>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+
+          <div class="cart-summary" style="background:var(--card-bg, #161625);padding:2rem;border-radius:16px;position:sticky;top:100px;align-self:start;border:1px solid var(--border);">
+            <h3 style="font-size:1.3rem;font-weight:700;margin-bottom:20px;">Order Summary</h3>
+            
+            <div class="summary-row" style="display:flex;justify-content:space-between;margin-bottom:12px;color:var(--text-secondary);">
+              <span>Subtotal</span>
+              <span style="color:var(--text-primary);font-weight:600;">$${subtotal.toFixed(2)}</span>
+            </div>
+
+            ${discountAmount > 0 ? `
+              <div class="summary-row" style="display:flex;justify-content:space-between;margin-bottom:12px;color:var(--success);">
+                <span>Discount (${cart.appliedPromo.discountPercent}%)</span>
+                <span style="font-weight:600;">-$${discountAmount.toFixed(2)}</span>
+              </div>` : ''}
+
+            <div class="summary-row" style="display:flex;justify-content:space-between;margin-bottom:12px;color:var(--text-secondary);">
+              <span>Estimated Shipping</span>
+              <span style="color:var(--success, #10b981);font-weight:600;">Free</span>
+            </div>
+
+            <div class="summary-row" style="display:flex;justify-content:space-between;margin-bottom:16px;border-bottom:1px solid rgba(255,255,255,0.1);padding-bottom:16px;color:var(--text-secondary);">
+              <span>Tax (8%)</span>
+              <span style="color:var(--text-primary);font-weight:600;">$${tax.toFixed(2)}</span>
+            </div>
+
+            <div class="summary-row summary-total" style="display:flex;justify-content:space-between;font-weight:800;font-size:1.3rem;margin-bottom:1.5rem;color:var(--text-primary);">
+              <span>Total</span>
+              <span style="color:var(--primary-light);">$${total.toFixed(2)}</span>
+            </div>
+            
+            ${promoHtml}
+
+            <button class="btn btn-primary checkout-btn" onclick="handleCheckout(${total.toFixed(2)})" style="width:100%;padding:16px;font-size:1rem;font-weight:700;">Proceed to Checkout</button>
+            <p style="text-align:center;color:var(--text-muted);font-size:0.8rem;margin-top:16px;">🔒 256-bit SSL Encrypted & Secure Checkout</p>
+          </div>
+        </div>`;
+
+      if (window.cart) cart.updateBadge();
+    }
+
+    function updateItemQty(id, newQty) {
+      if (!window.cart) return;
+      cart.updateQuantity(id, newQty);
+      renderCart();
+    }
+
+    function removeItem(id) {
+      if (!window.cart) return;
+      cart.removeFromCart(id);
+      renderCart();
+    }
+
+    function applyPromoCode() {
+      const input = document.getElementById('promo-input');
+      if (!input || !window.cart) return;
+      if (cart.applyPromoCode(input.value)) {
+        renderCart();
+      }
+    }
+
+    function removePromoCode() {
+      if (!window.cart) return;
+      cart.removePromoCode();
+      renderCart();
+    }
+
+    function handleCheckout(totalAmount) {
+      const modal = document.getElementById('checkout-modal');
+      const summaryEl = document.getElementById('modal-order-summary');
+      if (!modal) return;
+
+      if (summaryEl && window.cart) {
+        summaryEl.innerHTML = `
+          <div style="margin-bottom:8px;font-weight:600;color:var(--text-primary);">Order Details:</div>
+          <div style="color:var(--text-secondary);margin-bottom:4px;">Items Count: <strong>${cart.getCount()}</strong></div>
+          <div style="color:var(--text-secondary);margin-bottom:4px;">Total Paid: <strong style="color:var(--success);">$${totalAmount}</strong></div>
+          <div style="color:var(--text-muted);font-size:0.8rem;">Shipping to: Verified Customer Address</div>
+        `;
+      }
+
+      modal.style.display = 'flex';
+      modal.classList.add('active');
+      if (window.cart) {
+        cart.clear();
+      }
+    }
+
+    function closeCheckoutModal() {
+      const modal = document.getElementById('checkout-modal');
+      if (modal) {
+        modal.style.display = 'none';
+        modal.classList.remove('active');
+      }
+      renderCart();
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      renderCart();
+    });
+  </script>
+</body>
+</html>

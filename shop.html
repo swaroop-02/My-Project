@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop - SWAROOP'S HUB</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/products.js"></script>
+  <script src="js/app.js"></script>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <span class="logo-icon">✦</span>
+        SWAROOP'S<span class="logo-accent">HUB</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="shop.html" class="nav-link active">Shop</a></li>
+        <li><a href="categories.html" class="nav-link">Categories</a></li>
+        <li><a href="about.html" class="nav-link">About</a></li>
+        <li>
+          <a href="cart.html" class="nav-link nav-cart-link">
+            Cart
+            <span class="cart-count">0</span>
+          </a>
+        </li>
+      </ul>
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+  <div class="nav-overlay"></div>
+
+  <div class="page-header">
+    <div class="container">
+      <h1 class="page-title animate-on-scroll">Our Collection</h1>
+      <div class="page-breadcrumb animate-on-scroll">
+        <a href="index.html">Home</a> &gt; Shop
+      </div>
+    </div>
+  </div>
+
+  <div class="container shop-container">
+    <aside class="shop-sidebar animate-on-scroll">
+      <div class="shop-search">
+        <input type="text" id="search-input" class="search-input" placeholder="Search products...">
+      </div>
+      
+      <div class="filter-group">
+        <h3 class="filter-title">Categories</h3>
+        <div class="filter-options" id="category-filters">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+      
+      <div class="filter-group">
+        <h3 class="filter-title">Price Range</h3>
+        <div>
+          <input type="range" id="price-range" class="price-range" min="0" max="500" step="10" value="500">
+          <div style="display: flex; justify-content: space-between; margin-top: 8px; font-size: 0.85rem; color: var(--text-muted);">
+            <span>$0</span>
+            <span id="price-display">$500</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <h3 class="filter-title">Rating</h3>
+        <div class="filter-options">
+          <label class="filter-option"><input type="radio" name="rating" value="4"> <span>4★ &amp; up</span></label>
+          <label class="filter-option"><input type="radio" name="rating" value="3"> <span>3★ &amp; up</span></label>
+          <label class="filter-option"><input type="radio" name="rating" value="0" checked> <span>Any Rating</span></label>
+        </div>
+      </div>
+
+      <button id="clear-filters" class="btn btn-secondary" style="width: 100%;">Clear All Filters</button>
+    </aside>
+
+    <main>
+      <div class="shop-toolbar animate-on-scroll">
+        <div class="results-count" id="results-count">Showing 0 products</div>
+        <div class="shop-sort">
+          <select id="sort-select">
+            <option value="featured">Featured</option>
+            <option value="price-low">Price: Low to High</option>
+            <option value="price-high">Price: High to Low</option>
+            <option value="rating">Rating</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="products-grid" id="shop-products">
+        <!-- Rendered by JS -->
+      </div>
+      
+      <div id="no-results" class="no-results">
+        <div style="font-size: 4rem; margin-bottom: 16px;">🔍</div>
+        <h3>No products found</h3>
+        <p>Try adjusting your filters or search query.</p>
+      </div>
+    </main>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom" style="border-top: none; padding-top: 0;">
+        <p>&copy; 2026 SWAROOP'S HUB. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const shopProductsContainer = document.getElementById('shop-products');
+      const noResults = document.getElementById('no-results');
+      const resultsCount = document.getElementById('results-count');
+      const searchInput = document.getElementById('search-input');
+      const priceRange = document.getElementById('price-range');
+      const priceDisplay = document.getElementById('price-display');
+      const sortSelect = document.getElementById('sort-select');
+      const ratingInputs = document.querySelectorAll('input[name="rating"]');
+      const clearBtn = document.getElementById('clear-filters');
+      
+      // Initialize category filters
+      const catFiltersContainer = document.getElementById('category-filters');
+      CATEGORIES.forEach(cat => {
+        catFiltersContainer.innerHTML += `
+          <label class="filter-option">
+            <input type="checkbox" class="cat-checkbox" value="${cat.id}">
+            <span>${cat.name}</span>
+          </label>
+        `;
+      });
+
+      // Handle URL params for category
+      const urlParams = new URLSearchParams(window.location.search);
+      const initialCat = urlParams.get('category');
+      if (initialCat) {
+        const checkbox = document.querySelector(`.cat-checkbox[value="${initialCat}"]`);
+        if (checkbox) checkbox.checked = true;
+      }
+
+      function filterProducts() {
+        const searchTerm = searchInput.value.toLowerCase();
+        const maxPrice = parseFloat(priceRange.value);
+        const minRating = parseFloat(document.querySelector('input[name="rating"]:checked').value);
+        const selectedCats = Array.from(document.querySelectorAll('.cat-checkbox:checked')).map(cb => cb.value);
+        const sortBy = sortSelect.value;
+
+        let filtered = PRODUCTS.filter(p => {
+          const matchSearch = p.name.toLowerCase().includes(searchTerm) || p.description.toLowerCase().includes(searchTerm);
+          const matchCat = selectedCats.length === 0 || selectedCats.includes(p.category);
+          const matchPrice = p.price <= maxPrice;
+          const matchRating = p.rating >= minRating;
+          return matchSearch && matchCat && matchPrice && matchRating;
+        });
+
+        // Sort
+        if (sortBy === 'price-low') {
+          filtered.sort((a, b) => a.price - b.price);
+        } else if (sortBy === 'price-high') {
+          filtered.sort((a, b) => b.price - a.price);
+        } else if (sortBy === 'rating') {
+          filtered.sort((a, b) => b.rating - a.rating);
+        } else {
+          // default / featured (keep original array order)
+        }
+
+        // Render
+        if (filtered.length > 0) {
+          shopProductsContainer.style.display = 'grid';
+          noResults.style.display = 'none';
+          renderProducts('shop-products', filtered);
+        } else {
+          shopProductsContainer.style.display = 'none';
+          noResults.style.display = 'block';
+        }
+
+        resultsCount.textContent = `Showing ${filtered.length} product${filtered.length !== 1 ? 's' : ''}`;
+      }
+
+      // Event Listeners
+      searchInput.addEventListener('input', filterProducts);
+      priceRange.addEventListener('input', (e) => {
+        priceDisplay.textContent = '$' + e.target.value;
+        filterProducts();
+      });
+      sortSelect.addEventListener('change', filterProducts);
+      document.querySelectorAll('.cat-checkbox').forEach(cb => cb.addEventListener('change', filterProducts));
+      ratingInputs.forEach(radio => radio.addEventListener('change', filterProducts));
+
+      clearBtn.addEventListener('click', () => {
+        searchInput.value = '';
+        priceRange.value = 500;
+        priceDisplay.textContent = '$500';
+        document.querySelectorAll('.cat-checkbox').forEach(cb => cb.checked = false);
+        document.querySelector('input[name="rating"][value="0"]').checked = true;
+        sortSelect.value = 'featured';
+        filterProducts();
+      });
+
+      // Initial render
+      filterProducts();
+    });
+  </script>
+</body>
+</html>
